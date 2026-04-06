@@ -1,15 +1,16 @@
-# Cria servidor dummy para testes iniciais
-
-# Servidor dummy atendendo as especificoes do PDF do trabalho (assets/trab_sockets.pdf)
-
 import socket
 import threading
 
+VERDE = '\033[32m'
+VERMELHO = '\033[31m'
+RESET = '\033[0m'
+
 IP = '127.0.0.1'
 PORTA = 10000
-usuarios_online = {} # nome: (ip, porta)
+usuarios_online = {}
 
 def lidar_com_peer(conexao, endereco):
+    print(f"{VERDE}<conexão TCP realizada>{RESET}")
     ip_cliente = endereco[0]
     nome_cliente = ""
     
@@ -18,37 +19,41 @@ def lidar_com_peer(conexao, endereco):
             dados = conexao.recv(1024)
             if not dados: break
             
-            comando = dados.decode().strip()
+            msg_bruta = dados.decode()
+            comandos = msg_bruta.split("\r\n")
             
-            if comando.startswith("USER"):
-                # USER Fulano: 20000 
-                dados_user = comando.replace("USER ", "")
-                nome_cliente, porta = dados_user.split(": ")
-                usuarios_online[nome_cliente] = (ip_cliente, porta)
-                print(f"Cadastro: {nome_cliente} em {ip_cliente}:{porta}")
+            for cmd in comandos:
+                if not cmd: continue
                 
-            elif comando == "LIST":
-                # Resposta: LIST nome1:nome2: 
-                lista = ":".join([n for n in usuarios_online if n != nome_cliente])
-                conexao.send(f"LIST {lista}\r\n".encode())
+                # O servidor NÃO imprime mais o que recebe em vermelho aqui
                 
-            elif comando.startswith("ADDR"):
-                # ADDR Fulano 
-                alvo = comando.replace("ADDR ", "")
-                if alvo in usuarios_online:
-                    ip, porta = usuarios_online[alvo]
-                    # Resposta: ADDR nome: ip: porta 
-                    resposta = f"ADDR {alvo}: {ip}: {porta}\r\n"
-                    conexao.send(resposta.encode())
+                if cmd.startswith("USER"):
+                    nome_cliente, porta = cmd[5:].split(":")
+                    usuarios_online[nome_cliente] = (ip_cliente, porta)
+                    print(f"{VERDE}<cadastro usuário ativo>{RESET}")
                     
-            elif comando == "KEEP":
-                pass # PDF diz que KEEP não tem resposta 
-                
+                elif cmd == "LIST":
+                    lista = ":".join([n for n in usuarios_online if n != nome_cliente])
+                    msg_resp = f"LIST {lista}"
+                    print(f"{VERMELHO}{msg_resp}{RESET}") # Imprime apenas a resposta que ele envia
+                    conexao.send(f"{msg_resp}\r\n".encode())
+                    
+                elif cmd.startswith("ADDR"):
+                    alvo = cmd[5:].strip()
+                    if alvo in usuarios_online:
+                        ip, porta = usuarios_online[alvo]
+                        msg_resp = f"ADDR {alvo}:{ip}:{porta}"
+                        print(f"{VERMELHO}{msg_resp}{RESET}") # Imprime apenas a resposta que ele envia
+                        conexao.send(f"{msg_resp}\r\n".encode())
+                    
+                elif cmd == "KEEP":
+                    pass 
         except:
             break
             
     if nome_cliente in usuarios_online:
         del usuarios_online[nome_cliente]
+    print(f"{VERDE}<encerrar conexão>{RESET}")
     conexao.close()
 
 def main():
@@ -56,8 +61,9 @@ def main():
     servidor.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     servidor.bind((IP, PORTA))
     servidor.listen(10)
-    print("🤖 Servidor Dummy Central Online (Porta 10000)")
-
+    
+    print(f"{VERDE}<aguardando conexão>{RESET}")
+        
     while True:
         conn, addr = servidor.accept()
         threading.Thread(target=lidar_com_peer, args=(conn, addr), daemon=True).start()
