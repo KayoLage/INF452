@@ -7,10 +7,9 @@ import threading
 import time
 import sys
 
-DUMMY_IP = '127.0.0.1' 
+IP = '200.235.131.66' # SERVER VITOR => 200.235.131.66 | LOCAL => 127.0.0.1
 SERVER_PORT = 10000
 HOST = ''
-PORT = 0
 
 peers_conhecidos = {}
 sessao_atual = {'socket': None, 'nome_peer': None, 'sou_o_origem': False}
@@ -87,7 +86,7 @@ def main():
     
     print("<inicia conexão TCP serv.>")
     server_conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_conn.connect((DUMMY_IP, SERVER_PORT))
+    server_conn.connect((IP, SERVER_PORT))
 
     msg_reg = f"USER {nome_usuario}:{minha_porta}"
     print(msg_reg)
