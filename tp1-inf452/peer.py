@@ -9,7 +9,9 @@ import sys
 
 IP = '200.235.131.66' # SERVER VITOR => 200.235.131.66 | LOCAL => 127.0.0.1
 SERVER_PORT = 10000
+
 HOST = ''
+PORT = 0
 
 peers_conhecidos = {}
 sessao_atual = {'socket': None, 'nome_peer': None, 'sou_o_origem': False}
