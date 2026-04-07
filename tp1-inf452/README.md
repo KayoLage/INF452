@@ -58,7 +58,7 @@ Espere algo assim:
 python peer.py
 ```
 
-Digite o nome do seu usuário, após o *ENTER* é esperado do lado do servidor:
+Digite o nome do seu usuário, após o *ENTER* é esperado do lado/terminal do *peer*:
 
 
 `<inicia conexão TCP serv.>`
@@ -69,20 +69,28 @@ Digite o nome do seu usuário, após o *ENTER* é esperado do lado do servidor:
 
 `<aguardando conexão>`
 
+Já do lado do servidor:
+
+`<conexão TCP realizada>`
+
+`<cadastro usuário ativo>`
 
 > Se quiser simular a comunicação com outra pessoa, o que é comum e recomendado, abra outro terminal e rode o `peer.py` novamente!
 
-Os comandos são:
+### Comandos possíveis de serem executados pelo usuário
 
-`/msg <nome_usuario>`  -> Cria uma conexão p2p com usuário com nome <nome_usuario>
+`/chat <nome_usuario>`  -> Cria uma conexão p2p com usuário com nome <nome_usuario>
 
-`/list`                -> Lista todos os usuários on-line no servidor
+`/bye`                  -> Fecha a conexão p2p com usuário <nome_usuario>
 
-`/exit`                -> Desconecta do servidor
+`/list`                 -> Lista todos os usuários on-line no servidor
+
+`/exit`                 -> Desconecta do servidor
+
 
 ---
 
-#### Servidor real
+### Servidor real
 
 Aqui você precisará de um *IP*.
 
