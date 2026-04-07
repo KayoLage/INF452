@@ -1,12 +1,12 @@
-# Trabalho 1 INF 452 - Sockets
+# Trabalho 1 INF 452 - *Sockets*
 
-## O trabalho de Redes de Computadores busca fazer uma comunicação *Peer to Peer (P2P)* usando Sockets
+## O trabalho de Redes de Computadores busca fazer uma comunicação *Peer to Peer (P2P)* usando *Sockets*
 
 > Veja em: [Especificação Trabalho](assets/trab_sockets.pdf)
 
 ---
 
-### Temos a possibilidade de criar um servidor *dummy* de teste
+### Temos a possibilidade de criar um servidor *Dummy* de teste
 ### E depois, podemos testá-lo num servidor real
 
 ---
@@ -72,12 +72,21 @@ Digite o nome do seu usuário, após o *ENTER* é esperado do lado do servidor:
 
 > Se quiser simular a comunicação com outra pessoa, o que é comum e recomendado, abra outro terminal e rode o `peer.py` novamente!
 
-Os comandos estarão especificados nos *prints* de `peer.py`
+Os comandos são:
+
+`/msg <nome_usuario>`  -> Cria uma conexão p2p com usuário com nome <nome_usuario>
+
+`/list`                -> Lista todos os usuários on-line no servidor
+
+`/exit`                -> Desconecta do servidor
 
 ---
 
 #### Servidor real
 
-Aqui você precisará de um *IP*, basta trocar a varíavel `IP` e executar `peer.py`
+Aqui você precisará de um *IP*.
 
-- **Autor:** *Kayo de Melo Lage*
+Para tal, basta trocar a varíavel `IP` pelo *IP* do servidor que deseja conectar bem como a porta que o hosteia e executar `peer.py`
+
+### **Autor:** *Kayo de Melo Lage*
+### **Matrícula:** 116211
