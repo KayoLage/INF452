@@ -1,6 +1,8 @@
 # TP1 - INF452 (Sockets)
-# NOME:      Kayo de Melo Lage
-# MATRÍCULA: 116211
+
+# NOMES:      Kayo de Melo Lage | Caio César Oliveira Cândido 
+# MATRÍCULAS: 116211            | 116215
+
 
 import socket
 import threading

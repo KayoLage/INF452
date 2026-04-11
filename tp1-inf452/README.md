@@ -96,5 +96,6 @@ Aqui você precisará de um *IP*.
 
 Para tal, basta trocar a varíavel `IP` pelo *IP* do servidor que deseja conectar bem como a porta que o hosteia e executar `peer.py`
 
-### **Autor:** *Kayo de Melo Lage*
-### **Matrícula:** 116211
+### **Autores:** *Kayo de Melo Lage & Caio César Oliveira Cândido*
+### **Matrículas:** 116211 | 116215
+
